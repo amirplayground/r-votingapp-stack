@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: worker-app-pod
+  labels:
+    name: worker-app-pod
+    app: demo-volting-app
+spec:
+  containers:
+    - name: worker-app-container
+      image: 'kodecloud/examplevotingapp_worker:v1'

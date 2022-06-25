@@ -1,0 +1,57 @@
+================
+KUBERNETES
+================
+API Server
+etcd
+Scheduler
+Kubelet
+Controller
+Container Runtime
+
+MASTER  >> kube-apiserver > etcd > controller > scheduler
+WORKER >> kubelet > container runtime (e.g docker)
+
+================
+KUBECTL - kubectl
+================
+kubectl get all
+
+kubectl run nginx --image=nginx
+kubectl create deployment nginx --image=nginx
+kubectl create -f rc.yml
+kubectl get pods
+kubectl describe pod nginx
+
+kubectl get replicasets
+kubectl create -f replicaset.yml
+kubectl replace -f replicaset.yml
+kubectl scale --replica=6 replicatset.yml
+kubectl scale --replica=6 myapp-replicaset 
+kubectl delete replicaset myapp-replicaset
+kubectl describe replicaset myapp-replicaset
+kubectl edit replicaset myapp-replicaset
+kubectl scale replicaset myapp-replicaset --replicas=2
+
+kubectl get deployments
+kubectl create -f deployment.yml
+kubectl create -f deployment.yml --record=true
+kubectl apply -f deployment.yml
+kubectl rollout status deployment app-deployment
+kubectl rollout history deployment app-deployment
+kubectl rollout undo deployment app-deployment
+kubectlset image deployment app-deployment nginx:nginx:1.9
+kubectl describe deployment app-deployment
+
+
+
+================
+K8S RESOURCES
+================
+- pods
+- replication controller
+- replica sets
+- deployments
+- service
+    - nodeport
+    - clusterip
+    - load balancer
