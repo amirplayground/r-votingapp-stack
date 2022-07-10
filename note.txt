@@ -42,6 +42,66 @@ kubectl rollout undo deployment app-deployment
 kubectlset image deployment app-deployment nginx:nginx:1.9
 kubectl describe deployment app-deployment
 
+kubectl create -f /path/to/config-files
+kubectl apply -f /path/to/config-files
+
+================
+IMPERATIVE
+================
+
+kubectl run redis -l tier=db --image=redis:alpine
+OR
+kubectl run --image=redis:alpine redis --dry-run=client -oyaml > redis-pod.yaml
+kubectl create -f redis-pod.yaml
+
+    kubectl expose pod redis --port=6379 --name redis-service
+    kubectl create deployment webapp --image=kodekloud/webapp-color --replicas=3
+    kubectl run custom-nginx --image=nginx --port=8080 
+
+    kubectl create namespace dev-ns
+    kubectl create ns dev-ns
+
+    kubectl create deployment redis-deploy --image=redis --replicas=2 --namespace=dev-ns
+    kubectl create deployment redis-deploy --image=redis --replicas=2 --n dev-ns
+
+    kubectl run httpd --image=httpd:alpine --port=80 --expose
+
+    kubectl logs pod-1
+    kubectl logs pod-1 cointainer-1
+
+
+
+
+================
+ROLLING UPDATES AND ROLLBACKS
+================
+Deployment Strategies;
+    1. Recreate
+    2. Rolling Updates - defaul deployment strategy
+
+Rolling Updates
+---------------
+    kubectl rollout status deployment/myapp-deployment
+    kubectl rollout history deployment/myapp-deployment
+    kubectl rollout undo deployment/myapp-deployment
+
+
+================
+COMMANDS AND ARGUMENTS FOR DOCKER & KUBERNETES
+================
+ENTRYPOINT ["sleep"]    >>  commands:[sleep2.0]
+CMD ["5"]               >>  args:["10"]
+
+docker run--name ubuntu-sleeper ubuntu-sleeper 
+
+
+================
+CONFIG MAPS | plain environmental variables
+================
+kubectl create configmap | OR
+
+
+
 
 
 ================
@@ -55,3 +115,4 @@ K8S RESOURCES
     - nodeport
     - clusterip
     - load balancer
+- config maps

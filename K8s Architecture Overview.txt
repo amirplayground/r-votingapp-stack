@@ -1,0 +1,46 @@
+ETCD: is a key-value store
+=========================
+ETCD service        ./etcd
+ETCD client         ./etcdctl
+Input data          ./etcdctl set key1 value1
+Retreive data       ./etcdctl get key1
+
+
+Kube API Server: is the primary management componenet in Kubernetes
+==================================================================
+only the service the interact directly with ETCD Server
+Kube API Server config 
+kubeadm setup       cat /etc/kubernetes/manifests/kube-apiserver.yaml 
+non-kubeadm         cat /etc/systemd/system/kube-apiserver.service
+Check its process   ps -aux | grep kube-apiserver
+
+
+Kube Controller Manager: manages various controllers in kubernetes
+==================================================================
+monitors various component withing the system
+Node Controller | Replication Controller
+kubeadm setup       cat /etc/kubernetes/manifests/kube-controller-manager.yaml 
+non-kubeadm         cat /etc/systemd/system/kube-controller-manager.service
+Check its process   ps -aux | grep kube-controller-manager
+
+
+Kube Scheduler: responsible for scheduling pods on nodes, it decide which pod goes on which node.
+it doesnt place the pod on the node
+==================================================================
+kubeadm setup       cat /etc/kubernetes/manifests/kube-scheduler.yaml 
+Check its process   ps -aux | grep kube-scheduler
+
+
+Kubelet: like the captain of the ship, carries out the actions of placing pods to the node. 
+monitiors the state of the pods and reports to kube-apiserver on timely bases
+==================================================================
+Check its process   ps -aux | grep kubelet
+
+
+Kube Proxy: a pod network that is cluster-wide 
+for possible communication between pods on same node as well as pods accross different nodes using Services
+it is deployed as a daemonset, so it has a pod in all nodes
+==================================================================
+Check its process   ps -aux | grep kubelet
+
+

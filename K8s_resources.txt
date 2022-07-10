@@ -1,0 +1,42 @@
+==========================================================================
+**************************************************************************
+==========================================================================
+
+Pod
+
+ReplicaSets - mustliple instance of a pods, specifing no of pods running at a time
+=============================================
+
+
+
+Namespace - its a logical isolation of resources
+kube-system | default | kube-public
+=============================================
+dev | prod | default
+
+Resource with same Namespace:   "db-service"
+    *can connect each other just by their names*
+    *example:   mysql.connect("db-service")
+
+Resource accross Namespaces:   "db-service.dev.svc.cluster.local"
+    *connect by appending the namespace address "dev.svc.cluster.local" as suffix to the resource name
+    *example:   mysql.connect("db-service.dev.svc.cluster.local")
+
+db-service:         Service Name
+svc:                Service
+dev:                Namespace
+cluster.local:      Default domain name for kubernetes cluster
+
+kubectl get pods --namespace=dev
+kubectl create -f pod-definition.yml --namespace=prod
+    *specify the namespace under the metadata section of the definition file as "namespace: prod"
+kubectl create namespace dev
+
+know your current namespace:    kubectl config current-context
+
+Switching a namespace as default instead of the "Default" namespace:
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+
+
+Resource Quota - declare max pods, cpu, memory
+=============================================

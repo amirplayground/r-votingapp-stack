@@ -1,0 +1,79 @@
+================
+TAINTS | Nodes
+================
+TAINTS on nodes
+    template "kubectl taint nodes node-name key=value:taint-effect"
+        "taint-effect"  is what happens to PODs that do not TOLERATE this TAINT
+            NoSchedule | PreferNoSchedule | NoExecute
+    kubectl taint nodes node1 app=blue:NoSchedule 
+
+    kubectl describe node kubemaster | grep Taint
+
+================
+TOLERATION | Pods
+================
+TOLERATION on pods
+
+apiVersion: v1
+kind: Pod
+metatdata:
+  name: myapp-pod
+  labels:
+    app: myapp-pod
+    type: front-end
+    env: dev
+
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+  tolerations:
+    - key: "app"
+      operator: "Equal"
+      value: "blue"
+      effect: "NoSchedule" 
+
+
+================
+NODE SELECTOR
+================
+kubectl label nodes <node-name> <label-key>=<label-value>
+kubectl label nodes node-1 size=large
+
+apiVersion: v1
+kind: Pod
+metatdata:
+  name: myapp-pod
+  labels:
+    app: myapp-pod
+    type: front-end
+    env: dev
+
+spec:
+    containers:
+      - name: nginx-container
+        image: nginx
+    nodeSelector:
+      size: large
+
+
+================
+NODE AFFINITY
+it limits pod placement on specific nodes
+================
+Node Affinity Types:
+  Available;
+    requiredDuringSchedulingIgnoredDuringExecution
+    preferredDuringSchedulingIgnoredDuringExecution
+
+  Planned;
+    requiredDuringSchedulingRequiredDuringExecution
+    preferredDuringSchedulingRequiredDuringExecution
+
+================
+DAEMON SETS
+made available a pod in each node in the cluster
+================
+
+
+
